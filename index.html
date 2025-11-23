@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Investigación de Vulnerabilidades Web</title>
+
+<style>
+    body {
+        margin: 0;
+        font-family: "Segoe UI", Arial, sans-serif;
+        background: #0e0e0e;
+        color: #eee;
+        overflow-x: hidden;
+    }
+
+    header {
+        text-align: center;
+        padding: 60px 20px;
+        background: linear-gradient(135deg, #0078ff, #00d4ff);
+        color: white;
+        animation: fadeIn 2s ease;
+    }
+
+    h1 {
+        margin: 0;
+        font-size: 3rem;
+        animation: slideDown 1.5s ease;
+    }
+
+    section {
+        padding: 40px 20px;
+        max-width: 900px;
+        margin: auto;
+        animation: fadeInUp 1s ease;
+    }
+
+    h2 {
+        color: #00d4ff;
+        border-left: 4px solid #00d4ff;
+        padding-left: 10px;
+    }
+
+    .card {
+        background: #1a1a1a;
+        padding: 20px;
+        margin: 20px 0;
+        border-radius: 10px;
+        box-shadow: 0 0 15px rgba(0, 200, 255, 0.2);
+        transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 0 25px rgba(0, 200, 255, 0.5);
+    }
+
+    footer {
+        text-align: center;
+        padding: 20px;
+        background: #111;
+    }
+
+    /* Animaciones */
+    @keyframes fadeIn {
+        from { opacity: 0; }
+        to { opacity: 1; }
+    }
+
+    @keyframes slideDown {
+        from { transform: translateY(-50px); opacity: 0; }
+        to { transform: translateY(0); opacity: 1; }
+    }
+
+    @keyframes fadeInUp {
+        from { transform: translateY(30px); opacity: 0; }
+        to { transform: translateY(0); opacity: 1; }
+    }
+
+    /* Botón animado */
+    .btn {
+        display: inline-block;
+        margin-top: 15px;
+        padding: 10px 20px;
+        background: #0078ff;
+        color: white;
+        text-decoration: none;
+        border-radius: 5px;
+        transition: 0.3s;
+    }
+
+    .btn:hover {
+        background: #00d4ff;
+        box-shadow: 0 0 10px #00d4ff;
+    }
+</style>
+</head>
+
+<body>
+
+<header>
+    <h1>Investigación de Vulnerabilidades Web</h1>
+    <p>Inyección SQL · XSS · Fallos de Validación · Manejo Inseguro de Sesiones</p>
+</header>
+
+<section>
+
+    <div class="card">
+        <h2>1. Inyección a Base de Datos</h2>
+        <p>
+            La inyección SQL ocurre cuando una aplicación no valida o limpia correctamente los datos de entrada
+            y permite que un atacante inserte comandos SQL maliciosos. Esto puede provocar filtración de datos,
+            modificación o incluso eliminación de información crítica.
+        </p>
+        <p>
+            Para prevenirla, se recomienda:
+        </p>
+        <ul>
+            <li>Uso de consultas preparadas (prepared statements).</li>
+            <li>Validación y sanitización estricta de entradas.</li>
+            <li>Mínimos privilegios en cuentas de base de datos.</li>
+        </ul>
+    </div>
+
+    <div class="card">
+        <h2>2. Cross-Site Scripting (XSS)</h2>
+        <p>
+            XSS permite que un atacante inyecte scripts maliciosos en páginas vistas por otros usuarios.
+            Esto puede resultar en robo de cookies, redirecciones o ejecución de acciones en nombre del usuario.
+        </p>
+        <p>Mitigaciones recomendadas:</p>
+        <ul>
+            <li>Escapar todo contenido dinámico antes de mostrarlo en HTML.</li>
+            <li>Usar cabeceras como Content-Security-Policy (CSP).</li>
+            <li>Validar y sanitizar entradas de usuario.</li>
+        </ul>
+    </div>
+
+    <div class="card">
+        <h2>3. Fallos de Validación</h2>
+        <p>
+            Ocurren cuando una aplicación no valida adecuadamente los datos recibidos. Esto permite que
+            datos no esperados o malformados entren al sistema, generando errores de lógica o abriendo
+            puertas a ataques más graves como XSS o SQLi.
+        </p>
+        <p>Buenas prácticas:</p>
+        <ul>
+            <li>Validar siempre del lado del servidor (no solo del cliente).</li>
+            <li>Definir formatos y reglas claras para cada campo.</li>
+            <li>Rechazar datos que no cumplan los parámetros definidos.</li>
+        </ul>
+    </div>
+
+    <div class="card">
+        <h2>4. Manejo Inseguro de Sesiones</h2>
+        <p>
+            Cuando las sesiones no son gestionadas de forma segura, un atacante puede secuestrar sesiones,
+            suplantar usuarios o mantener sesiones activas indebidamente.
+        </p>
+        <p>Buenas prácticas:</p>
+        <ul>
+            <li>Usar cookies seguras (Secure, HttpOnly, SameSite).</li>
+            <li>Renovar el ID de sesión tras iniciar sesión.</li>
+            <li>Establecer tiempos de expiración apropiados.</li>
+            <li>Evitar exponer tokens en URLs.</li>
+        </ul>
+    </div>
+
+</section>
+
+<footer>
+    © 2025 - Investigación de Seguridad Web
+</footer>
+
+<script>
+    // Animación suave al hacer scroll
+    const cards = document.querySelectorAll(".card");
+
+    const showCards = () => {
+        const trigger = window.innerHeight * 0.85;
+
+        cards.forEach(card => {
+            const rect = card.getBoundingClientRect().top;
+            if (rect < trigger) {
+                card.style.opacity = "1";
+                card.style.transform = "translateY(0)";
+            }
+        });
+    };
+
+    window.addEventListener("scroll", showCards);
+    showCards();
+</script>
+
+</body>
+</html>
+
